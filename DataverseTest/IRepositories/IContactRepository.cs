@@ -10,9 +10,9 @@ namespace DataverseTest.IRepositories
     public interface IContactRepository
     {
         ICollection<Contact> GetAllContacts();
-        ICollection<Contact> GetContactsWithExpressionFilter(Expression<Func<bool, string>> filterExpression);
+        ICollection<Contact> GetContactsWithExpressionFilter(Expression<Func<Contact, bool>> filterExpression);
         Contact GetSingleContactById(int id);
-        Contact GetContactWithExpressionFilter(Expression<Func<bool, string>> filterExpression);
+        Contact GetContactWithExpressionFilter(Expression<Func<Contact, bool>> filterExpression);
         void AddContact(Contact ct);
         void UpdateContact(Contact ct);
         void DeleteContact(Contact ct);

@@ -14,14 +14,55 @@ namespace DataverseTest.UnitsOfWork
         private readonly DataverseDbContext _context;
 
         //Intanciate data repositories
-        private readonly IContactRepository contactRepository;
-        private readonly IContactPhoneRepository contactphoneRepository;
+        private IContactRepository _contactRepository;
+        private IContactPhoneRepository _contactphoneRepository;
 
+        //Initialize context and services 
         public UnitOfWork(DataverseDbContext context)
         {
             _context = context;
-            contactRepository = new ContactRepository(_context);
-            contactphoneRepository = new ContactPhoneRepository(_context);
         }
+
+        #region Initialize data repository area
+
+        //Initialze Contacts
+        public IContactRepository contactRepository
+        {
+            get
+            {
+                if (_contactRepository == null)
+                {
+                    _contactRepository = new ContactRepository(_context);
+                }
+                return _contactRepository;
+            }
+        }
+
+
+        //Initialze ContactPhones
+        public IContactPhoneRepository contactphoneRepository
+        {
+            get
+            {
+                if (_contactphoneRepository == null)
+                {
+                    _contactphoneRepository = new ContactPhoneRepository(_context);
+                }
+                return _contactphoneRepository;
+            }
+        }
+
+        #endregion
+
+
+
+        //Commit changes
+        public int Commit() =>       
+             _context.SaveChanges();
+        
+        //Dispose db context
+        public void Dispose() => 
+            _context.Dispose();
+        
     }
 }

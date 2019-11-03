@@ -8,10 +8,11 @@ using DataverseTest.Models;
 
 namespace DataverseTest.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
+            var q = _unitOfWork.contactRepository.GetAllContacts();
             return View();
         }
 

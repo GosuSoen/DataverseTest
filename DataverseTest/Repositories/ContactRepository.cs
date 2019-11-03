@@ -23,7 +23,7 @@ namespace DataverseTest.Repositories
         
 
         //find list of contacts by filter expression
-        public ICollection<Contact> GetContactsWithExpressionFilter(Expression<Func<bool, string>> filterExpression) =>     
+        public ICollection<Contact> GetContactsWithExpressionFilter(Expression<Func<Contact, bool>> filterExpression) =>     
              _context.Set<Contact>().ToList();
         
         
@@ -33,7 +33,7 @@ namespace DataverseTest.Repositories
         
 
         //find contact by filter expression
-        public Contact GetContactWithExpressionFilter(Expression<Func<bool, string>> filterExpression) =>     
+        public Contact GetContactWithExpressionFilter(Expression<Func<Contact, bool>> filterExpression) =>     
              _context.Set<Contact>().Find(filterExpression);
         
 
