@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataverseTest.Models;
+using DataverseTest.UnitsOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +36,9 @@ namespace DataverseTest
 
             services.AddDbContext<DataverseDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DataverseConnectionString")));
+
+            //Declare Unit of Work fr Startup
+            //services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

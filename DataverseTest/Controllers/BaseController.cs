@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DataverseTest.Models;
 using DataverseTest.UnitsOfWork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataverseTest.Controllers
 {
@@ -15,11 +16,11 @@ namespace DataverseTest.Controllers
         //Declare Unit of work service that will be 
         public IUnitOfWork _unitOfWork;
 
+
         //Initialize our unit of work to be able to open transactions with database
         protected BaseController()
         {
-            _unitOfWork = new UnitOfWork(new DataverseDbContext(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DataverseConnectionString"))));
+           // _unitOfWork = new UnitOfWork(new DataverseDbContext());
         }
     }
 }

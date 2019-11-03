@@ -10,7 +10,7 @@ namespace DataverseTest.UnitsOfWork
     {
         int Commit();
 
-        IContactRepository contactRepository { get; }
-        IContactPhoneRepository contactphoneRepository { get; }
+        IContactRepository Contacts { get; }
+        IContactPhoneRepository ContactPhones { get; }
     }
 }

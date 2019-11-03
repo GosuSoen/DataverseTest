@@ -26,7 +26,7 @@ namespace DataverseTest.UnitsOfWork
         #region Initialize data repository area
 
         //Initialze Contacts
-        public IContactRepository contactRepository
+        public IContactRepository Contacts
         {
             get
             {
@@ -40,7 +40,7 @@ namespace DataverseTest.UnitsOfWork
 
 
         //Initialze ContactPhones
-        public IContactPhoneRepository contactphoneRepository
+        public IContactPhoneRepository ContactPhones
         {
             get
             {

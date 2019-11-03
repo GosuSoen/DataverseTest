@@ -5,46 +5,74 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DataverseTest.Models;
+using DataverseTest.UnitsOfWork;
 
 namespace DataverseTest.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
+        //Intanciate db context and unit of work
+        private readonly DataverseDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+
+        //initialize 
+        public HomeController(DataverseDbContext context)
+        {
+            _context = context;
+            _unitOfWork = new UnitOfWork(_context); 
+        }
+
+        //First view with the list of contacts
         public IActionResult Index()
         {
-            var q = _unitOfWork.contactRepository.GetAllContacts();
+            ICollection<Contact> _contacts =  _unitOfWork.Contacts.GetAllContacts();
+            return View(_contacts);
+        }
+
+        //Create new contact View
+        public IActionResult Create()
+        {
             return View();
         }
 
-        
-        public IActionResult Create()
-        {
-            return RedirectToAction();
-        }
 
         [HttpPost]
         public IActionResult Create(Contact c)
         {
-            return RedirectToAction();
+            if(ModelState.IsValid)           
+                _unitOfWork.Contacts.AddContact(c);
+            
+            return RedirectToAction(nameof(Index));
         }
-
 
         public IActionResult Edit(int id)
         {
             return View();
         }
 
-        public IActionResult Edit()
+        //Edit Contact View
+        [HttpPost]
+        public IActionResult Edit(Contact c)
         {
+            if (ModelState.IsValid)
+                _unitOfWork.Contacts.UpdateContact(c);
+
             return View();
         }
 
+        //Delete Contact action and show first page
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
+        //Delete Phone for a specific Contact
+        [HttpPost]
+        public IActionResult DeleteContactPhone(int contactId, int contatPhoneId)
+        {
+            return RedirectToAction(nameof(Index));
+        }
 
 
         //public IActionResult Privacy()
