@@ -18,36 +18,31 @@ namespace DataverseTest.Repositories
         }
 
         public ICollection<ContactPhone> GetAllContactPhones() =>
-             _context.Set<ContactPhone>().ToList();
+             _context.ContactPhones.ToList();
 
 
         //find list of contacts by filter expression
         public ICollection<ContactPhone> GetContactPhonesWithExpressionFilter(Expression<Func<ContactPhone, bool>> filterExpression) =>
-             _context.Set<ContactPhone>().ToList();
-
+             _context.ContactPhones.ToList();
 
         //Find contact by id
         public ContactPhone GetSingleContactPhoneById(int id) =>
-             _context.Set<ContactPhone>().FirstOrDefault(a => a.Id == id);
-
+             _context.ContactPhones.FirstOrDefault(a => a.Id == id);
 
         //find contact by filter expression
         public ContactPhone GetContactPhoneWithExpressionFilter(Expression<Func<ContactPhone, bool>> filterExpression) =>
-             _context.Set<ContactPhone>().Find(filterExpression);
-
+             _context.ContactPhones.Find(filterExpression);
 
         //Add New Contact
         public void AddContactPhone(ContactPhone cp) =>
-            _context.Set<ContactPhone>().Add(cp);
-
+            _context.ContactPhones.Add(cp);
 
         //Update existing Contact
         public void UpdateContactPhone(ContactPhone cp) =>
-            _context.Set<ContactPhone>().Update(cp);
-
+            _context.ContactPhones.Update(cp);
 
         //Delete Contact
         public void DeleteContactPhone(ContactPhone cp) =>
-            _context.Set<ContactPhone>().Remove(cp);
+            _context.ContactPhones.Remove(cp);
     }
 }

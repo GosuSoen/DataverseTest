@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DataverseTest.Models;
 using DataverseTest.UnitsOfWork;
+using DataverseTest.ViewModels;
 
 namespace DataverseTest.Controllers
 {
@@ -19,7 +20,7 @@ namespace DataverseTest.Controllers
         public HomeController(DataverseDbContext context)
         {
             _context = context;
-            _unitOfWork = new UnitOfWork(_context); 
+            _unitOfWork = new UnitOfWork(_context);
         }
 
         //First view with the list of contacts
@@ -30,55 +31,70 @@ namespace DataverseTest.Controllers
         }
 
         //Create new contact View
-        public IActionResult Create()
-        {
-            return View();
-        }
-
+        public IActionResult Create() => View();
+         
 
         [HttpPost]
-        public IActionResult Create(Contact c)
+        public IActionResult Create(ContactViewModel cvm)
         {
-            if(ModelState.IsValid)           
-                _unitOfWork.Contacts.AddContact(c);
-            
-            return RedirectToAction(nameof(Index));
+            if(ModelState.IsValid)
+            {
+                _unitOfWork.Contacts.AddContact(cvm.Contact);
+                _unitOfWork.Complete();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(cvm);
         }
 
+        //Build ContactViewModel baased on
         public IActionResult Edit(int id)
         {
-            return View();
+            Contact ct = _unitOfWork.Contacts.GetSingleContactById(id);
+            return View(new ContactViewModel { Contact = ct });
         }
 
         //Edit Contact View
         [HttpPost]
-        public IActionResult Edit(Contact c)
+        public IActionResult Edit(ContactViewModel cvm)
         {
             if (ModelState.IsValid)
-                _unitOfWork.Contacts.UpdateContact(c);
+            {
+                _unitOfWork.Contacts.UpdateContact(cvm.Contact);
+                _unitOfWork.Complete();
+            }
+            return View(cvm);
+        }
 
-            return View();
+        //We add a Phone To a Contact view ViewModel
+        [HttpPost]
+        public IActionResult AddContactPhone(ContactViewModel cvm)
+        {       
+            Contact ct = _unitOfWork.Contacts.GetSingleContactById(cvm.Contact.Id);
+            ct.ContactPhones.Add(new ContactPhone { Contact = ct, PhoneNumber = cvm.PhoneNumber });
+            _unitOfWork.Contacts.UpdateContact(ct);
+            _unitOfWork.Complete();            
+            return RedirectToAction(nameof(Edit), new { id = cvm.Contact.Id });
         }
 
         //Delete Contact action and show first page
         [HttpPost]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int contactId)
         {
+            _unitOfWork.Contacts.DeleteContact(contactId);
+            _unitOfWork.Complete();
             return RedirectToAction(nameof(Index));
         }
 
-        //Delete Phone for a specific Contact
+        //Delete Phone. We just need to pass the id of the contact and the id of the contact number
         [HttpPost]
-        public IActionResult DeleteContactPhone(int contactId, int contatPhoneId)
+        public IActionResult DeleteContactPhone(int contactId, int phoneId)
         {
-            return RedirectToAction(nameof(Index));
+            Contact ct = _unitOfWork.Contacts.GetSingleContactById(contactId);
+            ContactPhone cp = ct.ContactPhones.FirstOrDefault(a=>a.Id == phoneId);
+            _unitOfWork.ContactPhones.DeleteContactPhone(cp);
+            _unitOfWork.Complete();
+            return RedirectToAction(nameof(Edit), new { id = contactId });
         }
-
-
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

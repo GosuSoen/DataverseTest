@@ -15,6 +15,6 @@ namespace DataverseTest.IRepositories
         Contact GetContactWithExpressionFilter(Expression<Func<Contact, bool>> filterExpression);
         void AddContact(Contact ct);
         void UpdateContact(Contact ct);
-        void DeleteContact(Contact ct);
+        void DeleteContact(int Id);
     }
 }

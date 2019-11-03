@@ -3,13 +3,16 @@
     ViewData["Title"] = "Home Page";
 }
 
-
 <script>
-    $(document).ready(function () {
-        $('table').DataTable();
+    $(document).ready(function ()
+    {
+        $('#contactTable').DataTable();
     });
 </script>
-<table id="contactTable"  class="display" style="width:100%">
+
+<h3>Contact List</h3>
+
+<table id="contactTable" class="display" style="width:100%">
     <thead>
         <tr>
             <th>Name</th>
@@ -25,8 +28,14 @@
                 <td>@item.Name</td>
                 <td>@item.Email</td>
                 <td>@item.Address</td>
-                Area for Edit and Delete
-                <td><input type="button" /></td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id, @class = "btn-info" }) |
+                    
+                    <form asp-controller="Home" asp-action="Delete" method="post">
+                                    <button type="submit">Delete</button>
+                                    <input type="hidden" name="contactId" value="@item.Id" />
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

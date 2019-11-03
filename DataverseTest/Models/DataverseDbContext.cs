@@ -12,7 +12,7 @@ namespace DataverseTest.Models
             : base(options)
         { }
 
-        public DbSet<Contact> Contact { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public DbSet<ContactPhone> ContactPhones { get; set; }
 
         //In case we want to add or change some database model options

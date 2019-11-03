@@ -8,7 +8,7 @@ namespace DataverseTest.UnitsOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        int Commit();
+        int Complete();
 
         IContactRepository Contacts { get; }
         IContactPhoneRepository ContactPhones { get; }

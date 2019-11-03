@@ -57,7 +57,7 @@ namespace DataverseTest.UnitsOfWork
 
 
         //Commit changes
-        public int Commit() =>       
+        public int Complete() =>       
              _context.SaveChanges();
         
         //Dispose db context
