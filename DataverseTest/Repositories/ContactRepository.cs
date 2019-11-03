@@ -13,10 +13,9 @@ namespace DataverseTest.Repositories
 
         private readonly DataverseDbContext _context;
 
-        public ContactRepository(DataverseDbContext context)
-        {
+        public ContactRepository(DataverseDbContext context) =>      
             _context = context;
-        }
+        
 
         public ICollection<Contact> GetAllContacts() =>       
              _context.Set<Contact>().ToList(); 
