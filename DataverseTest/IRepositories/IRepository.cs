@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataverseTest.IRepositories
 {
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T> 
     {
         Task<ICollection<T>> GetAll();
         Task<T> GetSingleById(int Id);

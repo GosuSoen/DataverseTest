@@ -21,53 +21,39 @@ namespace DataverseTest.Repositories
         }
 
         //Get Records of entity T from Database
-        public virtual async Task<ICollection<T>> GetAll()
+        public ICollection<T> GetAll()
         {
-            return await _dbSet.ToListAsync();
+            return _dbSet.ToList();
         }
 
-        ////Aynchronously get specific Entity by Parameter
-        //public virtual async Task<T> GetManyByParameter(Expression<Func<T, bool>> filterExpression)
-        //{
-        //    return await _dbSet.FirstOrDefaultAsync(filterExpression);
-        //}
-
         //Get specific record of entity T from Database by it's Id
-        public virtual async Task<T> GetSingleById(int Id)
+        public T GetSingleById(int Id)
         {
-            return await _dbSet.FirstOrDefaultAsync(a=>a.Id == Id);
+            return _dbSet.FirstOrDefault(a=>a.Id == Id);
         }
 
         //Aynchronously get specific Entity by Parameter
-        public virtual async Task<T> GetSingleByFilterExpression(Expression<Func<T,bool>> filterExpression)
+        public T GetSingleByFilterExpression(Expression<Func<T,bool>> filterExpression)
         {
-            return await _dbSet.FirstOrDefaultAsync(filterExpression);
+            return _dbSet.FirstOrDefault(filterExpression);
         }
 
         //Create new entity
-        public virtual async void Create(T entity)
+        public void Create(T entity)
         {
-             await _dbSet.AddAsync(entity);
-             await _context.SaveChangesAsync();
+              _dbSet.Add(entity);
         }
 
         //Get specific record of entity T from Database by it's Id
-        public virtual async void Update(T entity)
+        public void Update(T entity)
         {
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
         }
 
         //Get specific record of entity T from Database by it's Id
-        public virtual async void Delete(T entity)
+        public void Delete(T entity)
         {
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
-
-        public void Dispose()
-        {
-            this.Dispose();
         }
     }
 }
