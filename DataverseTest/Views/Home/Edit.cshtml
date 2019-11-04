@@ -20,7 +20,7 @@
         <input type="text" class="form-control" asp-for="Contact.Address" />
         <span asp-validation-for="Contact.Address"></span>
     </div>
-    <input type="submit" value="Edit Contact" />
+    <input type="submit" class="btn btn-warning" value="Edit Contact" />
 </form>
 
 <form asp-controller="Home" asp-action="AddContactPhone" class="form-group" method="post">
@@ -30,7 +30,7 @@
     </div>
     <input type="hidden" asp-for="Contact.Id" />
 
-    <input type="submit" value="Add Phone Number" />
+    <input type="submit" class="btn btn-success" value="Add Phone Number" />
 </form>
 
 <div class="form-group">
