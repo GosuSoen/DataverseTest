@@ -2,12 +2,9 @@
 
 @{ViewData["Title"] = "Edit";}
 
-<link rel="stylesheet" href="~/css/viewstyle.css">
-
-
 <h3>Edit Contact</h3>
 
-<form asp-controller="Home" asp-action="Edit" method="post">
+<form asp-controller="Home" asp-action="Edit" class="editForm" method="post">
     <div class="form-group">
         <label asp-for="Contact.Name"></label>
         <input type="text" class="form-control" asp-for="Contact.Name" />
@@ -26,10 +23,10 @@
     <input type="submit" value="Edit Contact" />
 </form>
 
-<form asp-controller="Home" asp-action="AddContactPhone" method="post">
+<form asp-controller="Home" asp-action="AddContactPhone" class="form-group" method="post">
     <div class="form-group">
         <label asp-for="PhoneNumber"></label>
-        <input type="text" class="form-control" asp-for="PhoneNumber" />
+        <input type="text" class="form-control" placeholder="Enter Value" asp-for="PhoneNumber" />
     </div>
     <input type="hidden" asp-for="Contact.Id" />
 
@@ -38,7 +35,7 @@
 
 <div class="form-group">
     <div class="form-inline">Contact Phone Numbers</div>
-    <table>
+    <table id="phonesTable" class="stripe">
         <thead>
             <tr>
                 <th>Phone Number</th>
@@ -52,7 +49,7 @@
                     <td>@item.PhoneNumber</td>
                     <td>
                         <form asp-controller="Home" asp-action="DeleteContactPhone" method="post">
-                            <button type="submit">Delete Contact Phone</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                             <input type="hidden" name="contactId" value="@Model.Contact.Id" />
                             <input type="hidden" name="phoneId" value="@item.Id" />
                         </form>
@@ -62,3 +59,4 @@
         </tbody>
     </table>
 </div>
+

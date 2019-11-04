@@ -7,10 +7,18 @@
       "destination": "wwwroot/datatables/",
       "files": [
         "js/jquery.dataTables.min.js",
+        "js/jquery.dataTables.js",
+        "css/jquery.dataTables.css",
+        "css/jquery.dataTables.min.css",
+        "js/dataTables.bootstrap.js",
         "js/dataTables.bootstrap.min.js",
-        "css/dataTables.bootstrap.min.css",
-        "css/jquery.dataTables.min.css"
+        "css/dataTables.bootstrap.css",
+        "css/dataTables.bootstrap.min.css"
       ]
+    },
+    {
+      "library": "sweetalert@2.1.2",
+      "destination": "wwwroot/sweetalert/"
     }
   ]
 }

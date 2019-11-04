@@ -3,16 +3,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-<script>
-    $(document).ready(function ()
-    {
-        $('#contactTable').DataTable();
-    });
-</script>
 
 <h3>Contact List</h3>
 
-<table id="contactTable" class="display" style="width:100%">
+<table id="contactTable" class="stripe" style="width:100%">
     <thead>
         <tr>
             <th>Name</th>
@@ -29,12 +23,14 @@
                 <td>@item.Email</td>
                 <td>@item.Address</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id, @class = "btn-info" }) |
-                    
-                    <form asp-controller="Home" asp-action="Delete" method="post">
-                                    <button type="submit">Delete</button>
-                                    <input type="hidden" name="contactId" value="@item.Id" />
-                    </form>
+                    <div class="display-inline">
+                        @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id },new { @class = "btn btn-info" }) |
+
+                        <form asp-controller="Home" asp-action="Delete" id="deleteContact" method="post">
+                            <button type="submit" onclick="confirmDelete()" class="btn btn-danger">Delete</button>
+                            <input type="hidden" name="contactId" value="@item.Id" />
+                        </form>
+                    </div>
                 </td>
             </tr>
         }
@@ -42,5 +38,3 @@
 </table>
 
 <div class="form-inline">@Html.ActionLink("Create Contact", "Create", "Home")</div>
-
-
