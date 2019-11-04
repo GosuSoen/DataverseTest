@@ -27,7 +27,7 @@
                         @Html.ActionLink("Edit", "Edit", "Home", new { id = item.Id },new { @class = "btn btn-info" }) |
 
                         <form asp-controller="Home" asp-action="Delete" id="deleteContact" method="post">
-                            <button type="submit" onclick="confirmDelete()" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                             <input type="hidden" name="contactId" value="@item.Id" />
                         </form>
                     </div>
@@ -37,4 +37,4 @@
     </tbody>
 </table>
 
-<div class="form-inline">@Html.ActionLink("Create Contact", "Create", "Home")</div>
+<div class="form-inline">@Html.ActionLink("Create Contact", "Create", "Home", new { @class="btn btn-primary" })</div>

@@ -48,7 +48,7 @@
                 <tr>
                     <td>@item.PhoneNumber</td>
                     <td>
-                        <form asp-controller="Home" asp-action="DeleteContactPhone" method="post">
+                        <form asp-controller="Home" id="deletePhone" asp-action="DeleteContactPhone" method="post">
                             <button type="submit" class="btn btn-danger">Delete</button>
                             <input type="hidden" name="contactId" value="@Model.Contact.Id" />
                             <input type="hidden" name="phoneId" value="@item.Id" />
